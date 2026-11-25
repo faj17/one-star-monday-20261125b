@@ -23,7 +23,12 @@ MAX_WORDS = 25
 
 
 def validate(line: str) -> str:
-    """Strip and sanity-check the review; raise ValueError on bad input."""
+    """Strip and sanity-check the review; raise ValueError on bad input.
+
+    Enforces the competition gate and rubric criterion 5: 1-180 chars,
+    at most 25 words, a single line, and plain text only — no hashtags,
+    stage directions, or markdown.
+    """
     text = line.strip()
     if not MIN_CHARS <= len(text) <= MAX_CHARS:
         raise ValueError(
@@ -36,6 +41,12 @@ def validate(line: str) -> str:
         )
     if "\n" in text or "\r" in text:
         raise ValueError("review must be a single line")
+    forbidden = set("#[]*_`")
+    bad = sorted(forbidden & set(text))
+    if bad:
+        raise ValueError(
+            f"review must be plain text, found forbidden characters: {bad}"
+        )
     return text
 
 

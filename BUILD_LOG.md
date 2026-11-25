@@ -28,3 +28,13 @@ Candidate 1 was the strongest frame (worst table + waiter + whole week + weekend
 
 - `python3 main.py` writes the line to `/output/entry.txt`; content equals the line verbatim.
 - Char count: 115 (gate: 1–180). Word count: 23 (limit: 25). Single line, UTF-8.
+
+## Revision 2 (2026-11-25)
+
+Local `check` failed only on `thinking_revised`: main.py's final content came
+from a single message that wrote the file; at least 2 are required. Revised
+`validate()` in this session (second write to main.py): it now also rejects
+hashtags, stage-direction brackets, and other markdown characters, so the
+plain-text rule (criterion 5) is enforced in code, not just by the 25-word /
+single-line checks already present. Entry line unchanged — re-verified
+115 chars, 23 words, single line, byte-identical to revision 1.
